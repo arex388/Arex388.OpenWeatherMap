@@ -12,6 +12,7 @@ namespace Arex388.OpenWeatherMap {
         /// <summary>
         /// The current humidity percent.
         /// </summary>
+        [JsonProperty("humidity")]
         public byte HumidityPercent { get; set; }
 
         /// <summary>
