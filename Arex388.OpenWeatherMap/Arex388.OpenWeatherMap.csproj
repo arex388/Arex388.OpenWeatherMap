@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<Authors>arex388</Authors>
+		<Description>A highly opinionated .NET Standard 2.0 library for the OpenWeatherMap API.</Description>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<LangVersion>latest</LangVersion>
+		<PackageProjectUrl>https://github.com/arex388/Arex388.OpenWeatherMap</PackageProjectUrl>
+		<PackageTags>openweathermap open-weather-map arex388 weather weather-map open-source</PackageTags>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<RepositoryUrl>https://github.com/arex388/Arex388.OpenWeatherMap</RepositoryUrl>
+		<TargetFramework>netstandard2.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FluentValidation" Version="11.10.0" />
+		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.10.0" />
+		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+		<PackageReference Include="System.Net.Http.Json" Version="8.0.0" />
+		<PackageReference Include="System.Text.Json" Version="8.0.4" />
+	</ItemGroup>
+
+</Project>
