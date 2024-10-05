@@ -26,10 +26,12 @@ public sealed class OpenWeatherMapClientFactoryTests {
 		//	========================================================================
 
 		var created = _openWeatherMapFactory.CreateClient(new OpenWeatherMapClientOptions {
-			Key = Config.Key
+			Key = Config.Key,
+			Units = Units.Fahrenheit
 		});
 		var cached = _openWeatherMapFactory.CreateClient(new OpenWeatherMapClientOptions {
-			Key = Config.Key
+			Key = Config.Key,
+			Units = Units.Fahrenheit
 		});
 
 		_console.WriteLineWithHeader(nameof(created), created);
@@ -53,10 +55,12 @@ public sealed class OpenWeatherMapClientFactoryTests {
 		//	========================================================================
 
 		var client1 = _openWeatherMapFactory.CreateClient(new OpenWeatherMapClientOptions {
-			Key = Config.Key
+			Key = Config.Key,
+			Units = Units.Fahrenheit
 		});
 		var client2 = _openWeatherMapFactory.CreateClient(new OpenWeatherMapClientOptions {
-			Key = string.Empty
+			Key = string.Empty,
+			Units = Units.Fahrenheit
 		});
 
 		_console.WriteLineWithHeader(nameof(client1), client1);

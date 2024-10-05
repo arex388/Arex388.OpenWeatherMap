@@ -5,7 +5,7 @@ namespace Arex388.OpenWeatherMap;
 /// <summary>
 /// The weather conditions.
 /// </summary>
-public sealed class WeatherConditions {
+public sealed class LegacyWeatherConditions {
 	/// <summary>
 	/// The condition's description.
 	/// </summary>

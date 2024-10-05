@@ -5,7 +5,7 @@ namespace Arex388.OpenWeatherMap;
 /// <summary>
 /// The current conditions.
 /// </summary>
-public sealed class CurrentConditions {
+public sealed class LegacyCurrentConditions {
 	/// <summary>
 	/// The humidity percentage.
 	/// </summary>

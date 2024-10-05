@@ -1,18 +1,23 @@
 ﻿using FluentValidation;
-using static Arex388.OpenWeatherMap.CurrentWeather;
+using static Arex388.OpenWeatherMap.HistoricalWeather;
 
 namespace Arex388.OpenWeatherMap;
 
 /// <summary>
-/// Current weather for a location.
+/// The historical weather for a location.
 /// </summary>
-public static class CurrentWeather {
+public static class HistoricalWeather {
 	/// <summary>
-	/// Current weather request.
+	/// The historical weather request.
 	/// </summary>
 	public sealed class Request :
 		RequestBase {
 		internal override string Endpoint => GetEndpoint(this);
+
+		/// <summary>
+		/// The response's language.
+		/// </summary>
+		public string? Language { get; init; }
 
 		/// <summary>
 		/// The location's latitude.
@@ -23,6 +28,11 @@ public static class CurrentWeather {
 		/// The location's longitude.
 		/// </summary>
 		public required decimal Longitude { get; init; }
+
+		/// <summary>
+		/// The timestamp to check.
+		/// </summary>
+		public required DateTimeOffset TimestampAt { get; init; }
 
 		/// <summary>
 		/// The response's unit of measurement.
@@ -38,15 +48,20 @@ public static class CurrentWeather {
 			var parameters = new HashSet<string> {
 				$"lat={request.Latitude}",
 				$"lon={request.Longitude}",
+				$"dt={request.TimestampAt.ToUniversalTime().ToUnixTimeSeconds()}",
 				$"units={request.Units.ToValues()}"
 			};
 
-			return $"weather?{parameters.StringJoin("&")}";
+			if (request.Language.HasValue()) {
+				parameters.Add($"lang={request.Language}");
+			}
+
+			return $"3.0/onecall/timemachine?{parameters.StringJoin("&")}";
 		}
 	}
 
 	/// <summary>
-	/// Current weather response.
+	/// The historical weather response.
 	/// </summary>
 	public sealed class Response :
 		ResponseBase<Response> {
@@ -66,5 +81,6 @@ file sealed class RequestValidator :
 	public RequestValidator() {
 		RuleFor(r => r.Latitude).GreaterThanOrEqualTo(-90).LessThanOrEqualTo(90).NotEmpty();
 		RuleFor(r => r.Longitude).GreaterThanOrEqualTo(-180).LessThanOrEqualTo(180).NotEmpty();
+		RuleFor(r => r.TimestampAt).NotEmpty();
 	}
 }

@@ -3,27 +3,27 @@ using System.Text.Json.Serialization;
 
 namespace Arex388.OpenWeatherMap.Converters;
 
-internal sealed class CurrentWeatherResponseJsonConverter :
-	JsonConverter<CurrentWeather.Response> {
-	public override CurrentWeather.Response Read(
+internal sealed class LegacyCurrentWeatherResponseJsonConverter :
+	JsonConverter<LegacyCurrentWeather.Response> {
+	public override LegacyCurrentWeather.Response Read(
 		ref Utf8JsonReader reader,
 		Type typeToConvert,
 		JsonSerializerOptions options) {
 		var element = JsonDocument.ParseValue(ref reader).RootElement;
 		var hasError = element.TryGetProperty("message", out var error);
 
-		return new CurrentWeather.Response {
+		return new LegacyCurrentWeather.Response {
 			Error = hasError
 				? error.GetString()
 				: null,
 			Weather = !hasError
-				? element.Deserialize<Weather>(options)
+				? element.Deserialize<LegacyWeather>(options)
 				: null
 		};
 	}
 
 	public override void Write(
 		Utf8JsonWriter writer,
-		CurrentWeather.Response value,
+		LegacyCurrentWeather.Response value,
 		JsonSerializerOptions options) => throw new NotImplementedException();
 }

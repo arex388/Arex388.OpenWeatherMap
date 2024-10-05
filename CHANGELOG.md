@@ -1,5 +1,21 @@
 # Changelog
 
+#### 3.0.1 (2024-10-04)
+
+- **Fixed:** JSON deserialization in `HistoricalWeather`.
+
+
+
+#### 3.0.0 (2024-10-04)
+
+This update has breaking changes because the subscription model for OpenWeatherMap is rather frustrating.
+
+- **Changed:** `CurrentWeather` to `LegacyCurrentWeather`.
+- **Added:** `HistoricalWeather` using the One Call v3.0 endpoints.
+- **Added:** `Units` property to `OpenWeatherMapClientOptions` to set a global default.
+
+
+
 #### 2.0.0 (2024-10-02)
 
 This update is a complete rewrite of the whole library. There are **many** breaking changes, but for the better, in my opinion. Overall the library should be more stable, more performant, and easier to use both for request and for reading the responses.

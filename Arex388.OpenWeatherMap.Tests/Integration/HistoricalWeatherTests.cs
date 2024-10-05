@@ -3,14 +3,15 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Arex388.OpenWeatherMap.Tests;
 
-public sealed class CurrentWeatherTests {
+public sealed class HistoricalWeatherTests {
 	private readonly ITestOutputHelper _console;
 	private readonly IOpenWeatherMapClient _openWeatherMap;
 
-	public CurrentWeatherTests(
+	public HistoricalWeatherTests(
 		ITestOutputHelper console) {
 		var services = new ServiceCollection().AddOpenWeatherMap(new OpenWeatherMapClientOptions {
-			Key = Config.Key
+			Key = Config.Key,
+			Units = Units.Fahrenheit
 		}).BuildServiceProvider();
 
 		_console = console;
@@ -27,7 +28,7 @@ public sealed class CurrentWeatherTests {
 		//	Act
 		//	========================================================================
 
-		var currentWeather = await _openWeatherMap.CurrentWeatherAsync(38.897675M, -77.036547M, Units.Default);
+		var currentWeather = await _openWeatherMap.HistoricalWeatherAsync(38.897675M, -77.036547M, DateTimeOffset.Now);
 
 		_console.WriteLineWithHeader(nameof(currentWeather), currentWeather);
 

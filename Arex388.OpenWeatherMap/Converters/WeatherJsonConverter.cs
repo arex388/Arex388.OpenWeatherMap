@@ -10,51 +10,13 @@ internal sealed class WeatherJsonConverter :
 		Type typeToConvert,
 		JsonSerializerOptions options) {
 		var element = JsonDocument.ParseValue(ref reader).RootElement;
-		var hasClouds = element.TryGetProperty("clouds", out var clouds);
-		var hasCurrentConditions = element.TryGetProperty("main", out var currentConditions);
-		var hasMeasuredAtUtc = element.TryGetProperty("dt", out var measuredAtUtc);
-		var hasRainPrecipitation = element.TryGetProperty("rain", out var rainPrecipitation);
-		var hasSnowPrecipitation = element.TryGetProperty("snow", out var snowPrecipitation);
-		var hasMetadata = element.TryGetProperty("sys", out var metadata);
-		var hasUtcOffset = element.TryGetProperty("timezone", out var utcOffset);
-		var hasVisibilityDistance = element.TryGetProperty("visibility", out var visibilityDistance);
-		var hasWeatherConditions = element.TryGetProperty("weather", out var weatherConditions);
-		var hasWindConditions = element.TryGetProperty("wind", out var windConditions);
+		var hasTimezoneUtcOffset = element.TryGetProperty("timezone_offset", out var timezoneUtcOffset);
 
 		return new Weather {
-			Clouds = hasClouds
-				? clouds.GetProperty("all").GetDecimal()
-				: null,
-			CurrentConditions = hasCurrentConditions
-				? currentConditions.Deserialize<CurrentConditions>(options)!
-				: null,
-			MeasuredAtUtc = hasMeasuredAtUtc
-				? DateTimeOffset.FromUnixTimeSeconds(measuredAtUtc.GetInt32()).DateTime
-				: null,
-			RainPrecipitation = hasRainPrecipitation
-				? rainPrecipitation.GetProperty("1h").GetDecimal()
-				: null,
-			SnowPrecipitation = hasSnowPrecipitation
-				? snowPrecipitation.GetProperty("1h").GetDecimal()
-				: null,
-			SunriseAtUtc = hasMetadata
-				? DateTimeOffset.FromUnixTimeSeconds(metadata.GetProperty("sunrise").GetInt32()).DateTime
-				: null,
-			SunsetAtUtc = hasMetadata
-				? DateTimeOffset.FromUnixTimeSeconds(metadata.GetProperty("sunset").GetInt32()).DateTime
-				: null,
-			UtcOffset = hasUtcOffset
-				? TimeSpan.FromSeconds(utcOffset.GetInt16())
-				: TimeSpan.Zero,
-			VisibilityDistance = hasVisibilityDistance
-				? visibilityDistance.GetInt16()
-				: null,
-			WeatherConditions = hasWeatherConditions
-				? weatherConditions.Deserialize<IList<WeatherConditions>>(options)!
-				: [],
-			WindConditions = hasWindConditions
-				? windConditions.Deserialize<WindConditions>(options)!
-				: null
+			Conditions = element.GetProperty("data").Deserialize<IList<WeatherCondition>>(options) ?? [],
+			UtcOffset = hasTimezoneUtcOffset
+				? TimeSpan.FromSeconds(timezoneUtcOffset.GetInt16())
+				: TimeSpan.Zero
 		};
 	}
 

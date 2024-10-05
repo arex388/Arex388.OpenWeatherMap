@@ -7,7 +7,8 @@
 </Query>
 
 private static readonly OpenWeatherMapClientOptions _options = new OpenWeatherMapClientOptions {
-	Key = Util.GetPassword("openweathermap.key")
+	Key = Util.GetPassword("openweathermap.key"),
+	Units = Units.Fahrenheit
 };
 
 async Task Main() {

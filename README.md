@@ -2,7 +2,7 @@
 
 > [!CAUTION]
 >
-> This README refers to the v.2.0.0 version of the library only.
+> This README refers to the v3.0.0 version of the library only.
 
 
 
@@ -25,7 +25,7 @@ For a single account, inject the `IOpenWeatherMapClient`.
 ```c#
 private readonly IOpenWeatherMapClient _openWeatherMap;
 
-_ = await _openWeatherMap.CurrentWeatherAsync(38.897675, -77.036547, Units.Default);
+_ = await _openWeatherMap.LegacyCurrentWeatherAsync(38.897675, -77.036547);
 ```
 
 
@@ -39,7 +39,7 @@ var openWeatherMap = _openWeatherMapFactory.CreateClient(new OpenWeatherMapClien
 	Key = "Your key from Open Weather Map"
 });
 
-_ = await _openWeatherMap.CurrentWeatherAsync(38.897675, -77.036547, Units.Default);
+_ = await _openWeatherMap.LegacyCurrentWeatherAsync(38.897675, -77.036547);
 ```
 
 
@@ -52,6 +52,12 @@ _ = await _openWeatherMap.CurrentWeatherAsync(38.897675, -77.036547, Units.Defau
 
 The client provides methods for interacting with Current Weather using the following methods:
 
-###### Current Weather
+###### Historical Weather
 
-- `CurrentWeatherAsync()` - Get the current weather for a location.
+- `HistoricalWeatherAsync()` - Get the historical weather for a location.
+
+
+
+###### Current Weather (Legacy)
+
+- `LegacyCurrentWeatherAsync()` - Get the current weather for a location.

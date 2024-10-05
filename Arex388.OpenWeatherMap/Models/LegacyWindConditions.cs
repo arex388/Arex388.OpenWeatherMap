@@ -5,7 +5,7 @@ namespace Arex388.OpenWeatherMap;
 /// <summary>
 /// The wind conditions.
 /// </summary>
-public sealed class WindConditions {
+public sealed class LegacyWindConditions {
 	/// <summary>
 	/// The wind's direction.
 	/// </summary>
