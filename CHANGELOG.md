@@ -1,5 +1,11 @@
 # Changelog
 
+#### 3.0.2 (2024-10-10)
+
+- **Updated:** NuGet packages.
+
+
+
 #### 3.0.1 (2024-10-04)
 
 - **Fixed:** JSON deserialization in `HistoricalWeather`.
